@@ -1,1 +1,2 @@
-python django_heroku_deploy/wsgi.py
+web: gunicorn --pythonpath app django_heroku_deploy.wsgi
+
