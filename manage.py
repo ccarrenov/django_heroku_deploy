@@ -9,10 +9,10 @@ def main():
     prod_settings = os.getenv('PROD_SETTINGS')
     print('PROD_SETTINGS: '.format(prod_settings))
 
-    if not prod_settings and prod_settings == 'True':
-        os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'django_heroku_deploy.settings')
-    else:
+    if prod_settings:
         os.environ.setdefault('DJANGO_SETTINGS_MODULE','django_heroku_deploy.settings-prod')
+    else:
+        os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'django_heroku_deploy.settings')
     
     try:
         from django.core.management import execute_from_command_line
