@@ -57,8 +57,8 @@ ROOT_URLCONF = 'django_heroku_deploy.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [os.path.join(BASE_DIR, 'bazar_transbank', 'template', 'parent'),
-                os.path.join(BASE_DIR, 'bazar_transbank', 'template')],
+        'DIRS': [os.path.join(BASE_DIR, 'django_heroku_deploy', 'template', 'parent'),
+                os.path.join(BASE_DIR, 'django_heroku_deploy', 'template')],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
