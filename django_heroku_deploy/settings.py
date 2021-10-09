@@ -28,7 +28,7 @@ SECRET_KEY = 'django-insecure-=np#62*w24&=3el)(zkea_ivqw2thv(y7m-b)ni&8!+l8@z%-z
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
 
-ALLOWED_HOSTS = ['*']
+ALLOWED_HOSTS = ['django-hekoru-deploy.herokuapp.com', '127.0.0.1']
 
 
 # Application definition
@@ -123,7 +123,6 @@ USE_TZ = True
 
 STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 STATIC_URL = '/static/'
-
 STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 
 # Default primary key field type
