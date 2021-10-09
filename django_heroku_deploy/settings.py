@@ -39,6 +39,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'django_heroku_deploy',
 ]
 
 MIDDLEWARE = [
@@ -57,7 +58,8 @@ ROOT_URLCONF = 'django_heroku_deploy.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': ['/app/template/parent', '/app/template'],
+        'DIRS': [os.path.join(BASE_DIR, 'django_heroku_deploy', 'template', 'parent'),
+                os.path.join(BASE_DIR, 'django_heroku_deploy', 'template')],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
