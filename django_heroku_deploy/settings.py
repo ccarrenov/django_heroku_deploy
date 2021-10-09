@@ -57,7 +57,7 @@ ROOT_URLCONF = 'django_heroku_deploy.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': ['template/parent', 'template'],
+        'DIRS': ['/app/template/parent', '/app/template'],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
