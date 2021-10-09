@@ -1,1 +1,1 @@
-web: gunicorn -b 127.0.0.1:5000 --env DJANGO_SETTINGS_MODULE=django_heroku_deploy.settings django_heroku_deploy.wsgi 
+web: gunicorn -b 127.0.0.1:5000 django_heroku_deploy.wsgi 
