@@ -1,2 +1,1 @@
-web: gunicorn --pythonpath app django_heroku_deploy.wsgi --log-file -
-
+web: gunicorn django_heroku_deploy.wsgi --access-logfile -
