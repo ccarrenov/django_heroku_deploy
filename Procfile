@@ -1,1 +1,1 @@
-web: gunicorn django_heroku_deploy.wsgi --source heroku
+web: gunicorn django_heroku_deploy.wsgi -b :5000 --source heroku
