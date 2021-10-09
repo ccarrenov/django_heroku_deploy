@@ -11,7 +11,7 @@ import os
 
 from django.core.wsgi import get_wsgi_application
 
-prod_settings = os.getenv('PROD_SETTINGS')
+prod_settings = os.environ('PROD_SETTINGS')
 print('PROD_SETTINGS: '.format(prod_settings))
 
 if not prod_settings and prod_settings == 'True':
