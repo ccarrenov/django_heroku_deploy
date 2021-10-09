@@ -17,6 +17,6 @@ print('PROD_SETTINGS: '.format(prod_settings))
 if not prod_settings and prod_settings == 'True':
     os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'django_heroku_deploy.settings')
 else:
-    os.environ.setdefault('DJANGO_SETTINGS_MODULE','django_heroku_deploy.settings-prod.py')
+    os.environ.setdefault('DJANGO_SETTINGS_MODULE','django_heroku_deploy.settings-prod')
 
 application = get_wsgi_application()
