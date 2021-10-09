@@ -1,1 +1,1 @@
-web: gunicorn django_heroku_deploy.wsgi --access-logfile -
+web: gunicorn django_heroku_deploy.wsgi --source heroku
