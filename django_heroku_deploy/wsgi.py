@@ -11,6 +11,11 @@ import os
 
 from django.core.wsgi import get_wsgi_application
 
-os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'django_heroku_deploy.settings')
+prod_settings = os.getenv('PROD_SETTINGS')
+
+if not prod_settings and prod_settings == 'True':
+    os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'django_heroku_deploy.settings')
+else:
+    os.environ.setdefault('DJANGO_SETTINGS_MODULE','django_heroku_deploy.settings-prod.py')
 
 application = get_wsgi_application()
