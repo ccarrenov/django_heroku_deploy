@@ -1,1 +1,0 @@
-web: gunicorn django_heroku_deploy.wsgi --log-level debug --env PROD_SETTINGS=$PROD_SETTINGS
