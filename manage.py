@@ -10,7 +10,7 @@ def main():
     #print('PROD_SETTINGS: '.format(prod_settings))
 
     #if not prod_settings and prod_settings == 'True':
-    os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'django_heroku_deploy-prop.settings')
+    os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'django_heroku_deploy.settings-prod')
     #else:
     #    os.environ.setdefault('DJANGO_SETTINGS_MODULE','django_heroku_deploy.settings-prod')
     
