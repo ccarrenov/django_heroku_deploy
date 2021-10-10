@@ -1,3 +1,1 @@
-export PROD_SETTINGS=$PROD_SETTINGS
-systemctl restart gunicorn
-web: gunicorn -e PROD_SETTINGS=$PROD_SETTINGS django_heroku_deploy.wsgi --log-level debug
+web: gunicorn django_heroku_deploy.wsgi-prod --log-level debug
