@@ -9,3 +9,4 @@ venv.bak/
 
 # Django stuff:
 *.log
+__pycache__/
