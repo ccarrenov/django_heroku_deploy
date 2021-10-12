@@ -40,7 +40,7 @@ El archivo **manage.py** es el que posee la configuración de la ruta y el nombr
 
 ## Creación settings-prod y wsgi-prod
 
-En esta sección explicaremos de forma breve el como se creo el archivo settings.prod y wsgi-prod, junto a las consideraciones que debemos tener.
+En esta sección explicaremos de forma breve el como se creo el archivo **settings.prod.py** y **wsgi-prod.py**, junto a las consideraciones que debemos tener.
 
 Para crear el archivo **settings-prod.py** se realizaron las consideraciones pertinentes según la [documentación de heroku y Django](https://devcenter.heroku.com/categories/working-with-django). El primer paso es crear una copia del archivo settings.py que poseemos de forma local con el nombre **settings-prod.py**.
 
@@ -52,7 +52,19 @@ Posteriormente realizaremos las siguientes modificaciones:
 import django_heroku
 ```
 
-2- Configuramos carpeta static para que sea desplegada en heroku, línea 125 settings-prod.py.
+2- Configuramos mode debug en **falso** y agregamos el dominio que se genero para nuestra aplicación en heroku, junto a la ip **127.0.0.1**, línea 28 settings-prod.py.
+
+```
+DEBUG = False
+
+ALLOWED_HOSTS = ['django-hekoru-deploy.herokuapp.com', '127.0.0.1']
+```
+
+**NOTA:** El valor del dominio heroku aparece en la sección **SETTINGS**.
+
+![image](django-domain-heroku.png)
+
+3- Configuramos carpeta static para que sea desplegada en heroku, línea 125 settings-prod.py.
 
 ```
 STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
@@ -60,12 +72,14 @@ STATIC_URL = '/static/'
 
 STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 ```
-3- Agregamos al final del archivo settings-prod.py la siguiente función de la libreria de heroku.
+
+4- Agregamos al final del archivo settings-prod.py la siguiente función de la libreria de heroku.
 
 ```
 django_heroku.settings(locals())
 ```
-Para crear el archivo **wsgi-prod.py** que será usado por el servidor gunicorn para desplegar la aplicación web, copiaremos el archivo **wsgi.py** con el nombre **wsgi-prod.py** y luego modificamos la línea 14, en donde se define que archivo settins se utilizara.
+
+5- Para crear el archivo **wsgi-prod.py** que será usado por el servidor gunicorn para desplegar la aplicación web, copiaremos el archivo **wsgi.py** con el nombre **wsgi-prod.py** y luego modificamos la línea 14, en donde se define que archivo settins se utilizara.
 
 ```
 os.environ.setdefault('DJANGO_SETTINGS_MODULE','django_heroku_deploy.settings-prod')
@@ -116,4 +130,8 @@ Heroku nos permite definir que versión de python será usada en el despliegue d
 ```
 python-3.9.6
 ```
+## Configuración de variable de entorno en heroku
 
+Para desplegar en heroku debemos configurar las siguientes variables de entorno dentro de la aplicación en la sección **Settings**.
+
+![image](django-env-heroku.png)
