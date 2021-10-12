@@ -42,17 +42,17 @@ El archivo **manage.py** es el que posee la configuración de la ruta y el nombr
 
 En esta sección explicaremos de forma breve el como se creo el archivo settings.prod y wsgi-prod, junto a las consideraciones que debemos tener.
 
-Para crear el archivo settings-prod se realizaron las consideraciones pertinentes según la [documentación de heroku y Django](https://devcenter.heroku.com/categories/working-with-django). El primer paso es crear una copia del archivo settings.py que poseemos de forma local con el nombre settings-prod.py.
+Para crear el archivo **settings-prod.py** se realizaron las consideraciones pertinentes según la [documentación de heroku y Django](https://devcenter.heroku.com/categories/working-with-django). El primer paso es crear una copia del archivo settings.py que poseemos de forma local con el nombre **settings-prod.py**.
 
 Posteriormente realizaremos las siguientes modificaciones:
 
-Agregar librería django_heroku, línea 16 settings-prod.py.
+1- Agregar librería django_heroku, línea 16 settings-prod.py.
 
 ```
 import django_heroku
 ```
 
-Configuramos carpeta static para que sea desplegada en heroku, línea 125 settings-prod.py.
+2- Configuramos carpeta static para que sea desplegada en heroku, línea 125 settings-prod.py.
 
 ```
 STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
@@ -60,11 +60,60 @@ STATIC_URL = '/static/'
 
 STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 ```
-Agregamos al final del archivo settings-prod.py la siguiente función de la libreria de heroku.
+3- Agregamos al final del archivo settings-prod.py la siguiente función de la libreria de heroku.
 
 ```
 django_heroku.settings(locals())
 ```
+Para crear el archivo **wsgi-prod.py** que será usado por el servidor gunicorn para desplegar la aplicación web, copiaremos el archivo **wsgi.py** con el nombre **wsgi-prod.py** y luego modificamos la línea 14, en donde se define que archivo settins se utilizara.
+
+```
+os.environ.setdefault('DJANGO_SETTINGS_MODULE','django_heroku_deploy.settings-prod')
+```
+
+## Creación archivo Procfile
+
+Para el despliegue heroku nos da la posibilidad de indicar el servidor de aplicaciones y el comando de ejecución de la aplicación. Creamos entonces en el directorio raíz el archivo **Procfile** (sin extensión) con el siguiente contenido.
+
+```
+web: gunicorn django_heroku_deploy.wsgi-prod --log-level debug
+```
+
+**NOTA:** El comando indica el tipo de aplicación que se desplegará (web), el nombre del servidor (gunicorn), el nombre del archivo que posee la configuración de la aplicación a desplegar (django_heroku_deploy.wsgi-prod), configuración del nivel de logs que se mostrará en heroku.
 
 
+## Creación archivo requirements.txt
+
+Se debe crear archivo **requirements.txt** que define las dependencias de librerías a instalar en heroku. Para ellos ejecutaremos el siguiente comando.
+
+```
+python -m pip freeze > requirements.txt
+```
+
+**NOTA**: Usar entorno virtual env para desarrollar con la finalidad de no definir librerías que no se utilizarán al momento de desplegar nuestra aplicación.
+
+
+El contenido para el archivo para este proyecto es el siguiente:
+
+**requirements.txt**
+
+```
+asgiref==3.4.1
+dj-database-url==0.5.0
+Django==3.2.5
+django-heroku==0.3.1
+gunicorn==20.1.0
+psycopg2==2.9.1
+pytz==2021.1
+sqlparse==0.4.1
+whitenoise==5.2.0
+```
+
+## Creación archivo runtime.txt
+
+Heroku nos permite definir que versión de python será usada en el despliegue de nuestra aplicación, para ellos se debe generar en el directorio raíz del proyecto el archivo **runtime.txt** con la siguiente información:
+
+```
+python-3.9.6
+```
 
