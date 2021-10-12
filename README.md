@@ -19,7 +19,7 @@ Debido a lo antes mencionado, existen diversas soluciones de terceros que nos pe
 
 Para diferenciar configuraciones productivas y de desarrollo, se poseen diversos mecánismos. En este proyecto se eligió la utilización de archivos totalmente independientes para los despliegues, esta verificación se realiza mediante una variable de entorno llamada **PROD_SETTINGS**, que es verificada en el archivo **manage.py**. Dicha variable debe existir y poseer el valor igual a **True**, en caso contrario solo se utilizaran los archivos **settings.py** y **wsgi.py** que posee por defecto el proyecto al ser creado con los comando de Django.
 
-![image](django-deploy.png)
+![image](django_heroku_deploy/static/img/heroku/django-deploy.png)
 
 ## Configuración manage.py
 
@@ -62,7 +62,7 @@ ALLOWED_HOSTS = ['django-hekoru-deploy.herokuapp.com', '127.0.0.1']
 
 **NOTA:** El valor del dominio heroku aparece en la sección **SETTINGS**.
 
-![image](django-domain-heroku.png)
+![image](django_heroku_deploy/static/img/heroku/django-domain-heroku.png)
 
 3- Configuramos carpeta static para que sea desplegada en heroku, línea 125 settings-prod.py.
 
@@ -104,7 +104,7 @@ Se debe crear archivo **requirements.txt** que define las dependencias de librer
 python -m pip freeze > requirements.txt
 ```
 
-**NOTA**: Usar entorno virtual env para desarrollar con la finalidad de no definir librerías que no se utilizarán al momento de desplegar nuestra aplicación.
+**NOTA**: Usar entorno [virtual env](https://j2logo.com/virtualenv-pip-librerias-python/) para desarrollar con la finalidad de no definir librerías que no se utilizarán al momento de desplegar nuestra aplicación.
 
 
 El contenido para el archivo para este proyecto es el siguiente:
@@ -134,7 +134,7 @@ python-3.9.6
 
 Para desplegar en heroku debemos configurar las siguientes variables de entorno dentro de la aplicación en la sección **Settings**.
 
-![image](django-env-heroku.png)
+![image](django_heroku_deploy/static/img/heroku/django-env-heroku.png)
 
 **NOTA:** La variable de entorno **PORT** debe estar en el valor **5000**, ya que en heroku las aplicaciones web son configuradas mediante este puerto para posteriormente exponerlas por el puerto **80/443**.
 
@@ -142,4 +142,4 @@ Para desplegar en heroku debemos configurar las siguientes variables de entorno 
 
 https://django-hekoru-deploy.herokuapp.com/
 
-![image](django-heroku-deploy.png)
+![image](django_heroku_deploy/static/img/heroku/django-heroku-deploy.png)
