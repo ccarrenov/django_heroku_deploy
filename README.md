@@ -23,7 +23,48 @@ Para diferenciar configuraciones productivas y de desarrollo, se poseen diversos
 
 ## Configuración manage.py
 
-El archivo manage.py es el que posee la configuración de la ruta y el nombre del archivo que será usado en la configuración de nuestro proyecto Django. Para este caso definiremos una regla que permita verificar si existe una variable de entorno que definirá si se utilizará el settings.py por defecto o se utilizará el settings.prod.
+El archivo **manage.py** es el que posee la configuración de la ruta y el nombre del archivo que será usado en la configuración de nuestro proyecto Django en su despliegue. Para este caso definiremos una regla que permita verificar si existe una variable de entorno que definirá si se utilizará el **settings.py** por defecto o se utilizará el **settings.prod**. Lo antes mencionado se observa en las siguientes líneas:
+
+**manage.py**
+```
+    prod_settings = os.environ.get('PROD_SETTINGS')
+    print('PROD_SETTINGS: '.format(prod_settings))
+
+    if prod_settings and prod_settings == 'True':
+        print('LOAD PROD SETTINGS')
+        os.environ.setdefault('DJANGO_SETTINGS_MODULE','django_heroku_deploy.settings-prod')
+    else:
+        print('LOAD DEVELOPMENT SETTINGS')
+        os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'django_heroku_deploy.settings')
+```
+
+## Creación settings-prod y wsgi-prod
+
+En esta sección explicaremos de forma breve el como se creo el archivo settings.prod y wsgi-prod, junto a las consideraciones que debemos tener.
+
+Para crear el archivo settings-prod se realizaron las consideraciones pertinentes según la [documentación de heroku y Django](https://devcenter.heroku.com/categories/working-with-django). El primer paso es crear una copia del archivo settings.py que poseemos de forma local con el nombre settings-prod.py.
+
+Posteriormente realizaremos las siguientes modificaciones:
+
+Agregar librería django_heroku, línea 16 settings-prod.py.
+
+```
+import django_heroku
+```
+
+Configuramos carpeta static para que sea desplegada en heroku, línea 125 settings-prod.py.
+
+```
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
+STATIC_URL = '/static/'
+
+STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
+```
+Agregamos al final del archivo settings-prod.py la siguiente función de la libreria de heroku.
+
+```
+django_heroku.settings(locals())
+```
 
 
 
