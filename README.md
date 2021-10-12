@@ -136,4 +136,4 @@ Para desplegar en heroku debemos configurar las siguientes variables de entorno 
 
 ![image](django-env-heroku.png)
 
-**NOTA:** La variable de entorno PORT debe estar en el valor 5000, ya que heroku las aplicaciones web son configuradas mediante este puerto para posteriormente exponerlas por el puerto 80/443.
+**NOTA:** La variable de entorno **PORT** debe estar en el valor **5000**, ya que en heroku las aplicaciones web son configuradas mediante este puerto para posteriormente exponerlas por el puerto **80/443**.
